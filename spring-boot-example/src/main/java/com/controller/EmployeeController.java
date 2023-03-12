@@ -11,6 +11,7 @@ import com.entity.Employee;
 import com.service.EmployeeService;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/employee")
 
 public class EmployeeController {
@@ -63,8 +64,14 @@ public class EmployeeController {
         return employeeService.update(employee);
     }
 
-    @DeleteMapping("/{id}")
-    public boolean delete(@PathVariable("id") Long id) {
-        return employeeService.delete(id);
+    @DeleteMapping("/{employeeIdentifier}")
+    public boolean delete(@PathVariable("employeeIdentifier") String identifier) {
+//        return employeeService.delete(id);
+        try {
+            Long id = Long.parseLong(identifier);
+            return employeeService.delete(id);
+        } catch(Exception e) {
+            return employeeService.delete(employeeService.findByName(identifier).get(0).getId());
+        }
     }
 }
