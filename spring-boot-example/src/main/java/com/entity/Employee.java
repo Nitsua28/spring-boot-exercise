@@ -15,6 +15,8 @@ public class Employee {
     private String location;
     private String email;
 
+    private String phonenumber;
+
 //    public Employee(String name, String location, String email) {
 //        this.name = name;
 //        this.location = location;
